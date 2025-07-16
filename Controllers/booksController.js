@@ -1,4 +1,4 @@
-const { default: Book } = require("../Models/bookModel");
+const Book = require("../Models/bookModel");
 
 const allBooks = async (req, res) => {
     const books = await Book.find({})
@@ -13,7 +13,10 @@ const addBook = async (req, res) => {
 }
 
 const viewBook = async (req, res) => {
+    const { id } = await req.params
+    const book = await Book.findById(id)
 
+    res.json(book)
 }
 
 const deleteBook = async (req, res) => {
