@@ -12,10 +12,16 @@ const port = 3000
 const bookRoutes = require('./Routes/bookRoutes.js');
 const userRoutes = require('./Routes/userRoutes.js')
 
+const allowedOrigins = {
+    development: "http://localhost:5173",
+    production: process.env.FRONTEND_URL
+};
+
 app.use(cors({
-    credentials: true,
-    origin: "http://localhost:5173",
-}))
+    origin: allowedOrigins[process.env.NODE_ENV],
+    credentials: true
+}));
+
 app.use(express.json())//to take data/body from request
 app.use(cookieParser())
 app.all('{*splat}', (req, res, next) => {
